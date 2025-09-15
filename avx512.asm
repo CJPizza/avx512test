@@ -1,17 +1,13 @@
-global avx512
+global avx512              ; export symbol to C++
 
 section .data
-seq: db 'ACGTACGTACGTACGT'
+seq: db 'ACGTACGTACGTACGT', 0
 
 section .text
-
-; void avx512(char* out);
 avx512:
-    vmovdqu8 zmm0, [rel seq]
-
-    vextracti32x4 xmm1, zmm0, 0 
-
-    movdqu [rdi], xmm1
-
+    ; First argument in Linux x86-64 is RDI
+    mov rax, rdi            ; copy output pointer into rax (not needed, just demo)
+    mov byte [rdi], 'X'     ; store a test character into buffer
     ret
+
 
