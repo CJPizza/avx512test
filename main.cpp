@@ -1,6 +1,5 @@
 #include <iostream>
 #include <immintrin.h> 
-#include <vectorclass.h>
 
 extern "C" void avx512(char* out);
 
@@ -17,3 +16,4 @@ int main() {
 
     return 0;
 }
+
