@@ -1,18 +1,16 @@
-option casemap:none
-public avx512
+section .data
+    seq db 'ACGTACGTACGTACGT'
 
-.data
-seq db 'ACGTACGTACGTACGT'  ; DNA bases (ASCII)
+section .text
+    global avx512
 
-.code
-avx512 proc
-    vmovdqu8 zmm0, ZMMWORD PTR [seq]
+; void avx512(char* out);
+
+avx512:
+    vmovdqu8 zmm0, [rel seq]
 
     vextracti32x4 xmm1, zmm0, 0
 
-    movdqu XMMWORD PTR [rcx], xmm1
+    movdqu [rdi], xmm1
 
     ret
-avx512 endp
-
-end
